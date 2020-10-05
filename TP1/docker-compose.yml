@@ -1,0 +1,105 @@
+version: '2'
+services:
+    es01:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.8.0'
+        container_name: es01
+        environment:
+            - node.name=es01
+            - cluster.name=es-docker-cluster
+            - http.port=9200
+            - transport.tcp.port=9300
+            - discovery.seed_hosts=es02,es03
+            - cluster.initial_master_nodes=es01,es02,es03
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+            - xpack.security.enabled=false
+        ulimits:
+            memlock:
+              soft: -1
+              hard: -1
+        volumes:
+            - './node1/data:/usr/share/elasticsearch/data'
+        ports:
+            - '9201:9200'
+        hostname: es01
+    es02:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.8.0'
+        container_name: es02
+        environment:
+            - node.name=es02
+            - cluster.name=es-docker-cluster
+            - http.port=9200
+            - transport.tcp.port=9300
+            - discovery.seed_hosts=es01,es03
+            - cluster.initial_master_nodes=es01,es02,es03
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+            - xpack.security.enabled=false
+        ulimits:
+            memlock:
+              soft: -1
+              hard: -1
+        volumes:
+            - './node2/data:/usr/share/elasticsearch/data'
+        ports:
+            - '9202:9200'
+        hostname: es02
+    es03:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.8.0'
+        container_name: es03
+        environment:
+            - node.name=es03
+            - cluster.name=es-docker-cluster
+            - http.port=9200
+            - transport.tcp.port=9300
+            - discovery.seed_hosts=es02,es01
+            - cluster.initial_master_nodes=es01,es02,es03
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+            - xpack.security.enabled=false
+        ulimits:
+            memlock:
+              soft: -1
+              hard: -1
+        volumes:
+            - './node3/data:/usr/share/elasticsearch/data'
+        ports:
+            - '9203:9200'
+        hostname: es03
+    kibana:
+        image: 'docker.elastic.co/kibana/kibana:7.8.0'
+        container_name: kibana
+        depends_on:
+            - es01
+            - es02
+            - es03
+        environment:
+            - 'ES_JAVA_OPTS=-Xms2048m -Xmx2048m'
+            - ELASTICSEARCH_HOSTS=["http://es01:9200","http://es02:9200","http://es03:9200"]
+        ports:
+            - '5601:5601'
+        hostname: kibana
+    cerebro:
+        image: 'lmenezes/cerebro:latest'
+        container_name: cerebro
+        depends_on:
+            - es01
+            - es02
+            - es03
+        ports:
+            - '9000:9000'
+        hostname: cerebro
+    grafana:
+        image: 'grafana/grafana:6.5.0'
+        container_name: grafana
+        ports:
+            - '3000:3000'
+        user: '0'
+        hostname: grafana
+        restart: unless-stopped
+        environment:
+            GF_PANELS_DISABLE_SANITIZE_HTML: 'true'
+            GF_SECURITY_ADMIN_PASSWORD: grafadmin
+            GF_SECURITY_ADMIN_USER: admin
+            GF_PATHS_PROVISIONING: /etc/grafana/provisioning/
+            DASHBOARDS_SAVE_PATH: /var/lib/grafana/dashboards_spvnit
