@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre",
+							"raw": "{{host}}/livre",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -51,7 +51,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre/_doc",
+							"raw": "{{host}}/livre/_doc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -80,7 +80,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre/_search",
+							"raw": "{{host}}/livre/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -109,7 +109,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre",
+							"raw": "{{host}}/livre",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -137,7 +137,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre",
+							"raw": "{{host}}/livre",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -165,7 +165,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre",
+							"raw": "{{host}}/livre",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -193,7 +193,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/livre/_search",
+							"raw": "{{host}}/livre/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -253,7 +253,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -281,7 +281,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc",
+									"raw": "{{host}}/account/_doc",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -313,7 +313,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/<id_to_replace>",
+									"raw": "{{host}}/account/_doc/<id_to_replace>",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -343,7 +343,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -376,7 +376,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -406,7 +406,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -436,7 +436,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_update/12346",
+									"raw": "{{host}}/account/_update/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -466,7 +466,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_update/12346",
+									"raw": "{{host}}/account/_update/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -487,7 +487,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -507,7 +507,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_settings",
+									"raw": "{{host}}/account/_settings",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -527,7 +527,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/",
+									"raw": "{{host}}/account/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -563,7 +563,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -591,7 +591,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -619,7 +619,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_aliases",
+									"raw": "{{host}}/_aliases",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -647,7 +647,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -676,7 +676,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/",
+									"raw": "{{host}}/account/_doc/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -709,7 +709,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/dflVMnIBSVps-z5xCgdI",
+									"raw": "{{host}}/account/_doc/dflVMnIBSVps-z5xCgdI",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -739,7 +739,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -772,7 +772,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -793,7 +793,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -813,7 +813,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_settings",
+									"raw": "{{host}}/account/_settings",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -833,7 +833,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/",
+									"raw": "{{host}}/account/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -891,7 +891,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -919,7 +919,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -947,7 +947,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -976,7 +976,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_aliases",
+									"raw": "{{host}}/_aliases",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1004,7 +1004,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc",
+									"raw": "{{host}}/account/_doc",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1036,7 +1036,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/dflVMnIBSVps-z5xCgdI",
+									"raw": "{{host}}/account/_doc/dflVMnIBSVps-z5xCgdI",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1066,7 +1066,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1099,7 +1099,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1120,7 +1120,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1140,7 +1140,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_settings",
+									"raw": "{{host}}/account/_settings",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1160,7 +1160,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/",
+									"raw": "{{host}}/account/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1189,7 +1189,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_search",
+									"raw": "{{host}}/account/_search",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1247,7 +1247,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account",
+									"raw": "{{host}}/account",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1275,7 +1275,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_template/account_template",
+									"raw": "{{host}}/_template/account_template",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1304,7 +1304,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc",
+									"raw": "{{host}}/account/_doc",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1336,7 +1336,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account_prd/_doc/dPlOMnIBSVps-z5xRQc3",
+									"raw": "{{host}}/account_prd/_doc/dPlOMnIBSVps-z5xRQc3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1366,7 +1366,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1399,7 +1399,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_doc/12346",
+									"raw": "{{host}}/account/_doc/12346",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1429,7 +1429,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/alias_lille/_search",
+									"raw": "{{host}}/alias_lille/_search",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1449,7 +1449,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1469,7 +1469,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/_settings",
+									"raw": "{{host}}/account/_settings",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1489,7 +1489,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:9201/account/",
+									"raw": "{{host}}/account/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1518,7 +1518,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_mapping",
+									"raw": "{{host}}/account/_mapping",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1547,7 +1547,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/account/_search",
+									"raw": "{{host}}/account/_search",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1630,7 +1630,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1659,7 +1659,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search?scroll=1m",
+							"raw": "{{host}}/kibana_sample_data_flights/_search?scroll=1m",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1694,7 +1694,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_search/scroll",
+							"raw": "{{host}}/_search/scroll",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1723,7 +1723,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1752,7 +1752,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/account/_search",
+							"raw": "{{host}}/account/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1781,7 +1781,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1810,7 +1810,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/account/_search",
+							"raw": "{{host}}/account/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1839,7 +1839,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1868,7 +1868,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1897,7 +1897,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1935,7 +1935,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_scripts/mytemplate",
+									"raw": "{{host}}/_scripts/mytemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1964,7 +1964,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_render/template/myfirsttemplate",
+									"raw": "{{host}}/_render/template/myfirsttemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1994,7 +1994,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_render/template/myfirsttemplate",
+									"raw": "{{host}}/_render/template/myfirsttemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2024,7 +2024,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/kibana_sample_data_flights/_search/template",
+									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2054,7 +2054,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/kibana_sample_data_flights/_search/template",
+									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2091,7 +2091,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_scripts/mysecondtemplate",
+									"raw": "{{host}}/_scripts/mysecondtemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2120,7 +2120,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_render/template/mysecondtemplate",
+									"raw": "{{host}}/_render/template/mysecondtemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2150,7 +2150,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/kibana_sample_data_flights/_search/template",
+									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2209,7 +2209,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_scripts/mythirdtemplate",
+									"raw": "{{host}}/_scripts/mythirdtemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2238,7 +2238,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/_render/template/mythirdtemplate",
+									"raw": "{{host}}/_render/template/mythirdtemplate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2268,7 +2268,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:9201/kibana_sample_data_flights/_search/template",
+									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2330,7 +2330,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer",
+							"raw": "{{host}}/customer",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2358,7 +2358,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer",
+							"raw": "{{host}}/customer",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2386,7 +2386,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/account/_mapping",
+							"raw": "{{host}}/account/_mapping",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2415,7 +2415,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/account/_doc/12346",
+							"raw": "{{host}}/account/_doc/12346",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2445,7 +2445,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_doc/12346?routing=Arras",
+							"raw": "{{host}}/customer/_doc/12346?routing=Arras",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2481,7 +2481,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_doc/12346?routing=Lille",
+							"raw": "{{host}}/customer/_doc/12346?routing=Lille",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2517,7 +2517,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_doc/12346?routing=Lille",
+							"raw": "{{host}}/customer/_doc/12346?routing=Lille",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2556,7 +2556,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_doc/12346",
+							"raw": "{{host}}/customer/_doc/12346",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2589,7 +2589,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_doc/12346",
+							"raw": "{{host}}/customer/_doc/12346",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2619,7 +2619,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/customer/_search?routing=Arras,Lille,Reims",
+							"raw": "{{host}}/customer/_search?routing=Arras,Lille,Reims",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2660,7 +2660,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_reindex",
+							"raw": "{{host}}/_reindex",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2694,7 +2694,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2723,7 +2723,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/kibana_sample_data_flights/_search",
+							"raw": "{{host}}/kibana_sample_data_flights/_search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2758,7 +2758,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_cluster/settings",
+							"raw": "{{host}}/_cluster/settings",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2787,7 +2787,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_ilm/policy/hot-warm-cold-delete-10min",
+							"raw": "{{host}}/_ilm/policy/hot-warm-cold-delete-10min",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2817,7 +2817,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_template/my_template",
+							"raw": "{{host}}/_template/my_template",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2846,7 +2846,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/test-1",
+							"raw": "{{host}}/test-1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2874,7 +2874,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/test-alias/_doc/1",
+							"raw": "{{host}}/test-alias/_doc/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2907,7 +2907,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9201/_ilm/status",
+							"raw": "{{host}}/_ilm/status",
 							"protocol": "http",
 							"host": [
 								"localhost"
