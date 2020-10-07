@@ -1,245 +1,104 @@
 {
 	"info": {
-		"_postman_id": "be1810df-f4ed-4f05-8c24-877e64fa50e8",
+		"_postman_id": "b6481f6d-73b7-402a-bc5d-dd933b0d8b03",
 		"name": "Formation ES",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "TP3 - Object vs Nested",
+			"name": "Correction",
 			"item": [
 				{
-					"name": "createIndex",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    },\n    \"mappings\":{\n\t    \"_source\": {\n\t      \"enabled\": true\n\t    },\n\t    \"properties\":{\n\t    \t\t\"titre\":{\n\t    \t\t  \"type\":\"text\"\n\t    \t\t },\n\t    \t\t \"editions\":{\n\t    \t\t \t\"properties\":{\n\t    \t\t      \"isbn\":{\n\t    \t\t        \"type\": \"text\"\n\t    \t\t      },\n\t    \t\t      \"publication\":{\n\t    \t\t        \"type\": \"date\",\n\t    \t\t        \"format\": \"yyyy\"\n\t    \t\t      }\n\t    \t\t \t}\n\t    \t\t }\n\t    \t}\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "insertDoc",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \t\t\"titre\":\"Le rouge et le noir\",\n    \t\t \"editions\":[\n    \t\t \t{\n    \t\t \t\t\"isbn\":\"A123\", \n    \t\t \t\t\"publication\": \"1830\"\n    \t\t \t},{\n    \t\t \t\t\"isbn\":\"B987\", \n    \t\t \t\t\"publication\": \"1903\"\n    \t\t \t\n    \t\t \t}\n    \t\t ]\n   } \t",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre/_doc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre",
-								"_doc"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchDocument",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"size\": 10,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"editions.publication\" : {\n      \t\t\t\t\"query\" : \"1903\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"editions.isbn\" : {\n      \t\t\t\t\"query\" : \"A123\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteIndex",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createIndexNested",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    },\n    \"mappings\":{\n\t    \"_source\": {\n\t      \"enabled\": true\n\t    },\n\t    \"properties\":{\n\t    \t\t\"titre\":{\n\t    \t\t  \"type\":\"text\"\n\t    \t\t },\n\t    \t\t \"editions\":{\n    \t\t        \"type\":\"nested\",\n\t    \t\t \t\"properties\":{\n\t    \t\t      \"isbn\":{\n\t    \t\t        \"type\": \"text\"\n\t    \t\t      },\n\t    \t\t      \"publication\":{\n\t    \t\t        \"type\": \"date\",\n\t    \t\t        \"format\": \"yyyy\"\n\t    \t\t      }\n\t    \t\t \t}\n\t    \t\t }\n\t    \t}\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "insertDoc",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \t\t\"titre\":\"Le rouge et le noir\",\n    \t\t \"editions\":[\n    \t\t \t{\n    \t\t \t\t\"isbn\":\"A123\", \n    \t\t \t\t\"publication\": \"1830\"\n    \t\t \t},{\n    \t\t \t\t\"isbn\":\"B987\", \n    \t\t \t\t\"publication\": \"1903\"\n    \t\t \t\n    \t\t \t}\n    \t\t ]\n   } \t",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchDocument",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"size\": 10,\n  \"query\": {\n  \t\"nested\" : {\n\t    \"path\" : \"editions\",\n\t    \"query\":{\n\t\t    \"bool\": {\n\t\t      \"must\": [\n\t\t      \t{\n\t\t      \t\t\"match\" : {\n\t\t      \t\t\t\"editions.publication\" : {\n\t\t      \t\t\t\t\"query\" : \"1903\",\n\t\t      \t\t\t\t\"boost\": 1.0\n\t\t      \t\t\t\t}\n\t\t      \t\t}\n\t\t      \t},\n\t\t      \t{\n\t\t      \t\t\"match\" : {\n\t\t      \t\t\t\"editions.isbn\" : {\n\t\t      \t\t\t\t\"query\" : \"A123\",\n\t\t      \t\t\t\t\"boost\": 1.0\n\t\t      \t\t\t\t}\n\t\t      \t\t}\n\t\t      \t}\n\t\t      ],\n\t\t      \"filter\": [],\n\t\t      \"should\": [],\n\t\t      \"must_not\": []\n\t\t    }\n\t    }\n  \t}\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/livre/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"livre",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "21119d15-b031-400d-85ca-b8c450786d4d",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "d143f040-f7be-410d-aa22-a584f45409db",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP4 - Creation",
-			"item": [
-				{
-					"name": "Direct Creation",
+					"name": "TP3 - Object vs Nested",
 					"item": [
 						{
-							"name": "delete Index",
+							"name": "createIndex",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    },\n    \"mappings\":{\n\t    \"_source\": {\n\t      \"enabled\": true\n\t    },\n\t    \"properties\":{\n\t    \t\t\"titre\":{\n\t    \t\t  \"type\":\"text\"\n\t    \t\t },\n\t    \t\t \"editions\":{\n\t    \t\t \t\"properties\":{\n\t    \t\t      \"isbn\":{\n\t    \t\t        \"type\": \"text\"\n\t    \t\t      },\n\t    \t\t      \"publication\":{\n\t    \t\t        \"type\": \"date\",\n\t    \t\t        \"format\": \"yyyy\"\n\t    \t\t      }\n\t    \t\t \t}\n\t    \t\t }\n\t    \t}\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/livre",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"livre"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "insertDoc",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \t\t\"titre\":\"Le rouge et le noir\",\n    \t\t \"editions\":[\n    \t\t \t{\n    \t\t \t\t\"isbn\":\"A123\", \n    \t\t \t\t\"publication\": \"1830\"\n    \t\t \t},{\n    \t\t \t\t\"isbn\":\"B987\", \n    \t\t \t\t\"publication\": \"1903\"\n    \t\t \t\n    \t\t \t}\n    \t\t ]\n   } \t",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/livre/_doc",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"livre",
+										"_doc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchDocument",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 10,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"editions.publication\" : {\n      \t\t\t\t\"query\" : \"1903\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"editions.isbn\" : {\n      \t\t\t\t\"query\" : \"A123\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/livre/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"livre",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteIndex",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -253,89 +112,27 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account",
+									"raw": "http://{{host}}:9201/livre",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account"
+										"livre"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "CreateDocument",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getDoc",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/<id_to_replace>",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"<id_to_replace>"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateDocumentWithID",
+							"name": "createIndexNested",
 							"request": {
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+									"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    },\n    \"mappings\":{\n\t    \"_source\": {\n\t      \"enabled\": true\n\t    },\n\t    \"properties\":{\n\t    \t\t\"titre\":{\n\t    \t\t  \"type\":\"text\"\n\t    \t\t },\n\t    \t\t \"editions\":{\n    \t\t        \"type\":\"nested\",\n\t    \t\t \t\"properties\":{\n\t    \t\t      \"isbn\":{\n\t    \t\t        \"type\": \"text\"\n\t    \t\t      },\n\t    \t\t      \"publication\":{\n\t    \t\t        \"type\": \"date\",\n\t    \t\t        \"format\": \"yyyy\"\n\t    \t\t      }\n\t    \t\t \t}\n\t    \t\t }\n\t    \t}\n\t}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -343,28 +140,1519 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc/12346",
+									"raw": "http://{{host}}:9201/livre",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_doc",
-										"12346"
+										"livre"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getDocWithID",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
+							"name": "insertDoc",
 							"request": {
-								"method": "GET",
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \t\t\"titre\":\"Le rouge et le noir\",\n    \t\t \"editions\":[\n    \t\t \t{\n    \t\t \t\t\"isbn\":\"A123\", \n    \t\t \t\t\"publication\": \"1830\"\n    \t\t \t},{\n    \t\t \t\t\"isbn\":\"B987\", \n    \t\t \t\t\"publication\": \"1903\"\n    \t\t \t\n    \t\t \t}\n    \t\t ]\n   } \t",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/livre",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"livre"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchDocument",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 10,\n  \"query\": {\n  \t\"nested\" : {\n\t    \"path\" : \"editions\",\n\t    \"query\":{\n\t\t    \"bool\": {\n\t\t      \"must\": [\n\t\t      \t{\n\t\t      \t\t\"match\" : {\n\t\t      \t\t\t\"editions.publication\" : {\n\t\t      \t\t\t\t\"query\" : \"1903\",\n\t\t      \t\t\t\t\"boost\": 1.0\n\t\t      \t\t\t\t}\n\t\t      \t\t}\n\t\t      \t},\n\t\t      \t{\n\t\t      \t\t\"match\" : {\n\t\t      \t\t\t\"editions.isbn\" : {\n\t\t      \t\t\t\t\"query\" : \"A123\",\n\t\t      \t\t\t\t\"boost\": 1.0\n\t\t      \t\t\t\t}\n\t\t      \t\t}\n\t\t      \t}\n\t\t      ],\n\t\t      \"filter\": [],\n\t\t      \"should\": [],\n\t\t      \"must_not\": []\n\t\t    }\n\t    }\n  \t}\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/livre/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"livre",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fcdc204-5504-463e-9d55-b30d64896e51",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7463eeb-3252-435f-af51-535f962113ed",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "TP4 - Creation",
+					"item": [
+						{
+							"name": "Direct Creation",
+							"item": [
+								{
+									"name": "delete Index",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/<id_to_replace>",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"<id_to_replace>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocumentWithID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDocWithID",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateDocumentWithID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 44,\n    \"gender\": \"Mme\",\n    \"address\": \"15 Rue de la Liberté\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "partialUpdateDocumentWithID",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"doc\" : {\n    \t\"city\": \"Brest\",\n    \t\"country\": \"FR\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_update/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_update",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "partialUpdateDocumentWithIOperation",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "\n{\n    \"script\" : {\n        \"source\": \"ctx._source.age += params.count\",\n        \"lang\": \"painless\",\n        \"params\" : {\n            \"count\" : 4\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_update/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_update",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getMapping",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getSettings",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_settings",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_settings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getAllConfig",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Creation With Settings Mappings",
+							"item": [
+								{
+									"name": "delete Index",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexSettings",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexAliasis",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"account\", \"alias\" : \"account_prd\" } }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_aliases",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_aliases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexMapping",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"_source\": {\n      \"enabled\": true\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 11111,\n    \"balance\": 54,\n    \"firstname\": \"Simon\",\n    \"lastname\": \"Dupont\",\n    \"age\": 23,\n    \"gender\": \"Mr\",\n    \"address\": \"13 rue Victor Hugo\",\n    \"email\": \"xx.xx@xx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/dflVMnIBSVps-z5xCgdI",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"dflVMnIBSVps-z5xCgdI"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocumentWithID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDocWithID",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getMapping",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getSettings",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_settings",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_settings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getAllConfig",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a6428f31-4f74-4a2b-94a6-fd0fd9aa370e",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "d2f8c61c-ad0a-47d1-a580-a775ae57067a",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Creation With no_source",
+							"item": [
+								{
+									"name": "delete Index",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexSettings",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexMapping",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\",\n                    \"store\": true\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createIndexAliasis",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"account\", \"alias\" : \"account_prd\" } }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_aliases",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_aliases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/dflVMnIBSVps-z5xCgdI",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"dflVMnIBSVps-z5xCgdI"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocumentWithID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDocWithID",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getMapping",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getSettings",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_settings",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_settings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getAllConfig",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchAllDocumentIncludeExcludeBooleanQueryOr",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"stored_fields\" : [\"firstname\", \"lastname\",\"city\",\"country\"],\n  \"size\": 10,\n \n   \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"country\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"city\" : {\n      \t\t\t\t\"query\" : \"Lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_search",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_search"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e444f1f-aaaa-4df0-a6b1-7edfbb60b3ed",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9394b65f-994f-4eee-81f0-c5a2ef074a81",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Creation With Template",
+							"item": [
+								{
+									"name": "delete Index",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createTemplate",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n   \"aliases\" : {\n        \"alias_all\" : {},\n        \"alias_lille\" : {\n            \"filter\" : {\n\t                \"match\" : {\n\t      \t\t\t\"city\" : {\n\t      \t\t\t\t\"query\" : \"lille\"\n\t      \t\t\t\t}\n\t      \t\t}\n            },\n            \"routing\" : \"lille\"\n        }\n    },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": true\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_template/account_template",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_template",
+												"account_template"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account_prd/_doc/dPlOMnIBSVps-z5xRQc3",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account_prd",
+												"_doc",
+												"dPlOMnIBSVps-z5xRQc3"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDocumentWithID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDocWithID",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_doc/12346",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_doc",
+												"12346"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchAllDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"query\":{\n    \t\"match_all\":{}\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/alias_lille/_search",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"alias_lille",
+												"_search"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getMapping",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getSettings",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/_settings",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_settings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getAllConfig",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{host}}:9201/account/",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AddAlias",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"properties\":{\n      \"ville\": {\n        \"type\": \"alias\",\n        \"path\": \"city\" \n      }\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_mapping",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_mapping"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "searchDocument",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n   \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"ville\" : {\n      \t\t\t\t\"query\" : \"lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/account/_search",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"account",
+												"_search"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f49238a0-54a7-4462-8ca2-5a08b6321108",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "18fbf0c5-df6c-4440-84d5-1fd06de17603",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9b371a25-6cf6-4589-a563-d93ee58a236a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6aa62bc-784c-4b6b-9d17-9070152a9457",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "TP5 - Recherches",
+					"item": [
+						{
+							"name": "SearchAllDocumentSort",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"from\": 10,\n\t\"size\": 5,\n    \"query\":{\n    \t\"match_all\":{}\n    },\n    \"sort\": [\n        {\"OriginCityName\": \"asc\"} \n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"kibana_sample_data_flights",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchAllDocumentScrollInit",
+							"request": {
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -376,59 +1664,34 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc/12346",
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search?scroll=1m",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_doc",
-										"12346"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "updateDocumentWithID",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 44,\n    \"gender\": \"Mme\",\n    \"address\": \"15 Rue de la Liberté\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"kibana_sample_data_flights",
+										"_search"
+									],
+									"query": [
+										{
+											"key": "scroll",
+											"value": "1m"
 										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/12346",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"12346"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "partialUpdateDocumentWithID",
+							"name": "SearchAllDocumentScrollNext",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"doc\" : {\n    \t\"city\": \"Brest\",\n    \t\"country\": \"FR\"\n    }\n}",
+									"raw": "{\n    \"scroll\" : \"1m\", \n    \"scroll_id\" : \"DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAITkWNUVhbzkyZUdRSDY4WTd4NXIwcGo4Zw==\" \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -436,29 +1699,28 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_update/12346",
+									"raw": "http://{{host}}:9201/_search/scroll",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_update",
-										"12346"
+										"_search",
+										"scroll"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "partialUpdateDocumentWithIOperation",
+							"name": "SearchAllDocument",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "\n{\n    \"script\" : {\n        \"source\": \"ctx._source.age += params.count\",\n        \"lang\": \"painless\",\n        \"params\" : {\n            \"count\" : 4\n        }\n    }\n}",
+									"raw": "{\n    \"query\":{\n    \t\"match_all\":{}\n    },\n    \"search_after\": [\"Abu Dhabi\"],\n    \"sort\": [\n        {\"OriginCityName\": \"asc\"} \n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -466,76 +1728,189 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_update/12346",
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_update",
-										"12346"
+										"kibana_sample_data_flights",
+										"_search"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getMapping",
+							"name": "SearchAllDocumentMatchQuery",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 2,\n  \"_source\": {\n    \"excludes\": [],\n    \"includes\": [\n        \"firstname\",\n        \"lastname\"\n      ]\n  },\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"term\": {\n\t            \"city\": {\n\t                \"value\": \"Lille\",\n\t                \"boost\": 1.0\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{host}}/account/_mapping",
+									"raw": "http://{{host}}:9201/account/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
 										"account",
-										"_mapping"
+										"_search"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getSettings",
+							"name": "SearchAllDocumentIncludeExclude",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n\t\"_source\": {\n\t\"excludes\": [],\n\t\"includes\": [\n\t    \"FlightNum\",\n\t    \"DestCountry\"\n\t  ]\n  },\n  \"size\": 30,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"term\": {\n\t            \"OriginCountry\": {\n\t                \"value\": \"US\",\n\t                \"boost\": 1.0\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{host}}/account/_settings",
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_settings"
+										"kibana_sample_data_flights",
+										"_search"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getAllConfig",
+							"name": "SearchAllDocumentIncludeExcludeBooleanQueryAnd",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 10,\n  \"_source\": {\n    \"excludes\": [],\n    \"includes\": [\n        \"firstname\",\n        \"lastname\",\n        \"city\"\n      ]\n  },\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"city\" : {\n      \t\t\t\t\"query\" : \"Lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"country\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{host}}/account/",
+									"raw": "http://{{host}}:9201/account/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
 										"account",
-										""
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchAllDocumentIncludeExcludeBooleanQueryOr",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 100,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\t\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"kibana_sample_data_flights",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchFilter",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \t\"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n\t\t\t\"term\": {\n\t            \"Cancelled\": {\n\t                \"value\": false\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [\t{\n      \t\t\"term\": {\n\t            \"DestCountry\": {\n\t                \"value\": \"FR\"\n\t            }\n      \t\t}\n      \t}],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"kibana_sample_data_flights",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchSup6000km",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \t\"_source\": {\n\t\"excludes\": [],\n\t\"includes\": [\n\t    \"FlightNum\",\n\t    \"DestCountry\",\n\t    \"DestCityName\"\n\t  ]\n  },\n  \"size\":100,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\"\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"range\" : {\n      \t\t\t\"DistanceKilometers\" : {\n      \t\t\t\t\"gte\" : \"6000\"\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\t\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"kibana_sample_data_flights",
+										"_search"
 									]
 								}
 							},
@@ -546,7 +1921,406 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Creation With Settings Mappings",
+					"name": "TP5 - Template de recherche",
+					"item": [
+						{
+							"name": "1",
+							"item": [
+								{
+									"name": "SearchTemplate",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{\\\"_source\\\": { \\\"includes\\\": {{#toJson}}filed_to_retrieve{{/toJson}} }, \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_scripts/mytemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_scripts",
+												"mytemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplateRender",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_render/template/myfirsttemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_render",
+												"template",
+												"myfirsttemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplateRenderWithParams",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_render/template/myfirsttemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_render",
+												"template",
+												"myfirsttemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplateSearch",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t  \"id\": \"myfirsttemplate\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search/template",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"kibana_sample_data_flights",
+												"_search",
+												"template"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplatesSearchAllParam",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t  \"id\": \"myfirsttemplate\",\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search/template",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"kibana_sample_data_flights",
+												"_search",
+												"template"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "2",
+							"item": [
+								{
+									"name": "SearchSupTemplate",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{\\\"_source\\\": { \\\"includes\\\": {{#toJson}}filed_to_retrieve{{/toJson}} }, \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_scripts/mysecondtemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_scripts",
+												"mysecondtemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplateRender",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"params\": {\n    \t\"filed_to_retrieve\": [ \"FlightNum\", \"OriginCountry\",\"DestCountry\", \"DestCityName\" ],\n    \t\"size\":10,\n    \t\"distance\":1,\n    \t\"origin\": \"FR\"\n\t  }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_render/template/mysecondtemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_render",
+												"template",
+												"mysecondtemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchSup6000kmSearchAllParam",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t  \"id\": \"mysecondtemplate\",\n\t\"params\": {\n    \t\"filed_to_retrieve\": [ \"FlightNum\", \"OriginCountry\",\"DestCountry\", \"DestCityName\" ],\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search/template",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"kibana_sample_data_flights",
+												"_search",
+												"template"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "627875f1-5511-4831-8f4f-c9f26b27027f",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "77462d42-623a-43b6-a066-d08a42054b29",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "3",
+							"item": [
+								{
+									"name": "SearchSupTemplate",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{  \\\"_source\\\": { \\\"includes\\\": {{^filed_to_retrieve}}\\\"*\\\"{{/filed_to_retrieve}}{{#toJson}}filed_to_retrieve{{/toJson}} },  \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_scripts/mythirdtemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_scripts",
+												"mythirdtemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchTemplateRender",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":1,\n    \t\"origin\": \"FR\"\n\t  }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/_render/template/mythirdtemplate",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"_render",
+												"template",
+												"mythirdtemplate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SearchSup6000kmSearchAllParam",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t  \"id\": \"mythirdtemplate\",\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search/template",
+											"protocol": "http",
+											"host": [
+												"{{host}}"
+											],
+											"port": "9201",
+											"path": [
+												"kibana_sample_data_flights",
+												"_search",
+												"template"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "eb33b16a-7f8f-4804-a946-19b265bd4a1e",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0527f5e3-394c-49c2-8fb5-70091eb4a596",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "TP6 - Routing",
 					"item": [
 						{
 							"name": "delete Index",
@@ -563,14 +2337,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account",
+									"raw": "http://{{host}}:9201/customer",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account"
+										"customer"
 									]
 								}
 							},
@@ -591,42 +2365,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account",
+									"raw": "http://{{host}}:9201/customer",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "createIndexAliasis",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"account\", \"alias\" : \"account_prd\" } }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_aliases",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_aliases"
+										"customer"
 									]
 								}
 							},
@@ -647,10 +2393,10 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_mapping",
+									"raw": "http://{{host}}:9201/account/_mapping",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
@@ -662,70 +2408,7 @@
 							"response": []
 						},
 						{
-							"name": "CreateDocument",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 11111,\n    \"balance\": 54,\n    \"firstname\": \"Simon\",\n    \"lastname\": \"Dupont\",\n    \"age\": 23,\n    \"gender\": \"Mr\",\n    \"address\": \"13 rue Victor Hugo\",\n    \"email\": \"xx.xx@xx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getDoc",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/dflVMnIBSVps-z5xCgdI",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"dflVMnIBSVps-z5xCgdI"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateDocumentWithID",
+							"name": "CreateDocumentWithoutRouting",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -739,10 +2422,10 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc/12346",
+									"raw": "http://{{host}}:9201/account/_doc/12346",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
@@ -755,7 +2438,115 @@
 							"response": []
 						},
 						{
-							"name": "getDocWithID",
+							"name": "CreateDocumentWithRouting",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/customer/_doc/12346?routing=Arras",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"customer",
+										"_doc",
+										"12346"
+									],
+									"query": [
+										{
+											"key": "routing",
+											"value": "Arras"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDocumentWithRouting2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/customer/_doc/12346?routing=Lille",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"customer",
+										"_doc",
+										"12346"
+									],
+									"query": [
+										{
+											"key": "routing",
+											"value": "Lille"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDocumentWithRouting3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/customer/_doc/12346?routing=Lille",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"customer",
+										"_doc",
+										"12346"
+									],
+									"query": [
+										{
+											"key": "routing",
+											"value": "Lille"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getDocWithoutRouting",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -772,14 +2563,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc/12346",
+									"raw": "http://{{host}}:9201/customer/_doc/12346",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
+										"customer",
 										"_doc",
 										"12346"
 									]
@@ -788,187 +2579,88 @@
 							"response": []
 						},
 						{
-							"name": "getMapping",
+							"name": "getDocWithRouting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{host}}/account/_mapping",
+									"raw": "http://{{host}}:9201/customer/_doc/12346",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_mapping"
+										"customer",
+										"_doc",
+										"12346"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getSettings",
+							"name": "searchWitRouting",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match_all\": {}\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{host}}/account/_settings",
+									"raw": "http://{{host}}:9201/customer/_search?routing=Arras,Lille,Reims",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_settings"
+										"customer",
+										"_search"
+									],
+									"query": [
+										{
+											"key": "routing",
+											"value": "Arras,Lille,Reims"
+										}
 									]
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "getAllConfig",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										""
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "cbf0d80a-8b5e-4cca-af98-0985239ba0ad",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "2e3df8e0-0827-46af-945b-dfc99a79d783",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
 						}
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Creation With no_source",
+					"name": "TP7 - Reindexation",
 					"item": [
 						{
-							"name": "delete Index",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "createIndexSettings",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "createIndexMapping",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\",\n                    \"store\": true\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"store\": true,\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_mapping",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_mapping"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "createIndexAliasis",
+							"name": "reindexFR",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"account\", \"alias\" : \"account_prd\" } }\n    ]\n}",
+									"raw": "{\n  \"source\": {\n    \"index\": \"kibana_sample_data_flights\",\n    \"query\": {\n      \"match\": {\n        \"DestCountry\": \"FR\"\n      }\n    },\n    \"_source\": [\"OriginCityName\", \"DestCityName\",\"DistanceKilometers\"]\n  },\n  \"dest\": {\n    \"index\": \"sample_flight_fr\"\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -976,27 +2668,34 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/_aliases",
+									"raw": "http://{{host}}:9201/_reindex",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"_aliases"
+										"_reindex"
 									]
 								}
 							},
 							"response": []
-						},
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "TP8 - Aggregation",
+					"item": [
 						{
-							"name": "CreateDocument",
+							"name": "aggAvg",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+									"raw": "{\n\t\"size\": 1,\n\t\t \"aggs\" : {\n        \"avg_grade\" : { \"avg\" : { \"field\" : \"DistanceKilometers\" } }\n    },\n\t\"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1004,184 +2703,28 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc",
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_doc"
+										"kibana_sample_data_flights",
+										"_search"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getDoc",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/dflVMnIBSVps-z5xCgdI",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"dflVMnIBSVps-z5xCgdI"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateDocumentWithID",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/12346",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"12346"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getDocWithID",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/12346",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"12346"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getMapping",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/_mapping",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_mapping"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getSettings",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/_settings",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_settings"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getAllConfig",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchAllDocumentIncludeExcludeBooleanQueryOr",
+							"name": "aggAvg FR US",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"stored_fields\" : [\"firstname\", \"lastname\",\"city\",\"country\"],\n  \"size\": 10,\n \n   \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"country\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"city\" : {\n      \t\t\t\t\"query\" : \"Lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
+									"raw": "{\t\n\t\"size\": 0,\t\n\t\"aggs\": {                                                 \n\t\t\"OriginCountry\": {                                    \n\t\t\t\"terms\": {\"field\":\"OriginCountry\"},\n\t\t\t\t\"aggs\":{\n\t\t\t\t\t\"DestinationCountry\": {                                    \n\t\t\t\t\t\"terms\": {\"field\":\"DestinationCountry\"}                  \n\t\t\t\t\t}\n\t\t\t\t}                  \n\t\t\t}\n\t\t}\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1189,14 +2732,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_search",
+									"raw": "http://{{host}}:9201/kibana_sample_data_flights/_search",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
+										"kibana_sample_data_flights",
 										"_search"
 									]
 								}
@@ -1204,42 +2747,20 @@
 							"response": []
 						}
 					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "71159686-eb5b-4986-82f6-c47777092639",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "13b77914-fdcc-4d36-a54b-aef7b22b47f5",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Creation With Template",
+					"name": "TP10 - ILM",
 					"item": [
 						{
-							"name": "delete Index",
+							"name": "ChangeILMInterval",
 							"request": {
-								"method": "DELETE",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+									"raw": "{\n  \"transient\": {\n    \"indices.lifecycle.poll_interval\": \"1m\" \n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1247,27 +2768,28 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account",
+									"raw": "http://{{host}}:9201/_cluster/settings",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account"
+										"_cluster",
+										"settings"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "createTemplate",
+							"name": "CreatePolicy",
 							"request": {
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n   \"aliases\" : {\n        \"alias_all\" : {},\n        \"alias_lille\" : {\n            \"filter\" : {\n\t                \"match\" : {\n\t      \t\t\t\"city\" : {\n\t      \t\t\t\t\"query\" : \"lille\"\n\t      \t\t\t\t}\n\t      \t\t}\n            },\n            \"routing\" : \"lille\"\n        }\n    },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": true\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
+									"raw": "{\n  \"policy\": {\n    \"phases\": {\n      \"hot\": {\n        \"actions\": {\n          \"rollover\": {\n          \t\"max_docs\": 10,\n            \"max_size\":\"50gb\",\n            \"max_age\":\"30d\"\n          },\n          \"set_priority\": {\n            \"priority\": 50\n          }\n        }\n      },\n      \"warm\": {\n        \"min_age\": \"3m\",\n        \"actions\": {\n          \"forcemerge\": {\n            \"max_num_segments\": 1\n          },\n          \"shrink\": {\n            \"number_of_shards\": 1\n          },\n          \"allocate\": {\n            \"require\": {\n              \"data\": \"warm\"\n            },\n            \"number_of_replicas\": 0\n          },\n          \"set_priority\": {\n            \"priority\": 25\n          }\n        }\n      },\n      \"cold\": {\n        \"min_age\": \"6m\",\n        \"actions\": {\n          \"set_priority\": {\n            \"priority\": 0\n          },\n          \"freeze\": {},\n          \"allocate\": {\n            \"require\": {\n              \"data\": \"cold\"\n            }\n          }\n        }\n      },\n      \"delete\": {\n        \"min_age\": \"9m\",\n        \"actions\": {\n          \"delete\": {}\n        }\n      }\n    }\n  }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1275,28 +2797,58 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/_template/account_template",
+									"raw": "http://{{host}}:9201/_ilm/policy/hot-warm-cold-delete-10min",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"_ilm",
+										"policy",
+										"hot-warm-cold-delete-10min"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateTemplate",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index_patterns\": [\"test-*\"], \n  \"settings\": {\n  \t\"number_of_shards\": 2,\n    \"index.lifecycle.name\": \"hot-warm-cold-delete-10min\", \n    \"index.lifecycle.rollover_alias\": \"test-alias\",\n     \"index.routing.allocation.require.data\": \"hot\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/_template/my_template",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
 										"_template",
-										"account_template"
+										"my_template"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "CreateDocument",
+							"name": "CreateIndex",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12345,\n    \"balance\": 250,\n    \"firstname\": \"John\",\n    \"lastname\": \"Doe\",\n    \"age\": 32,\n    \"gender\": \"M\",\n    \"address\": \"4 rue Royale\",\n    \"email\": \"xxx.xxx@xxx.xx\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
+									"raw": "{\n  \"aliases\": {\n    \"test-alias\":{\n      \"is_write_index\": true \n    }\n  }\n} ",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1304,22 +2856,51 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account/_doc",
+									"raw": "http://{{host}}:9201/test-1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account",
-										"_doc"
+										"test-1"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getDoc",
+							"name": "InsertDoc",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\":\"simon\",\n  \"age\":38,\n  \"city\":\"Lille\",\n  \"country\":\"FR\"\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}:9201/test-alias/_doc/1",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "9201",
+									"path": [
+										"test-alias",
+										"_doc",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getILMStatus",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1328,7 +2909,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "",
+									"raw": "{\n  \"aliases\": {\n    \"test-alias\":{\n      \"is_write_index\": true \n    }\n  }\n} ",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1336,974 +2917,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/account_prd/_doc/dPlOMnIBSVps-z5xRQc3",
+									"raw": "http://{{host}}:9201/_ilm/status",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
 									"port": "9201",
 									"path": [
-										"account_prd",
-										"_doc",
-										"dPlOMnIBSVps-z5xRQc3"
+										"_ilm",
+										"status"
 									]
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "CreateDocumentWithID",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/12346",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"12346"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getDocWithID",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_doc/12346",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_doc",
-										"12346"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchAllDocument",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"query\":{\n    \t\"match_all\":{}\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/alias_lille/_search",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"alias_lille",
-										"_search"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getMapping",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/_mapping",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_mapping"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getSettings",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/_settings",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_settings"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getAllConfig",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{host}}/account/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "AddAlias",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"properties\":{\n      \"ville\": {\n        \"type\": \"alias\",\n        \"path\": \"city\" \n      }\n\t}\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_mapping",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_mapping"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "searchDocument",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n   \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"ville\" : {\n      \t\t\t\t\"query\" : \"lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/account/_search",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"account",
-										"_search"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "d0135741-68e7-439a-933d-335ffd43d44f",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "3271d50e-83bf-491c-b7d9-559cb2fb9da2",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "9c4e5382-c0be-4abb-a628-66fabcff48ec",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "850c2767-e65b-42fd-9186-df38165ccb57",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP5 - Recherches",
-			"item": [
-				{
-					"name": "SearchAllDocumentSort",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"from\": 10,\n\t\"size\": 5,\n    \"query\":{\n    \t\"match_all\":{}\n    },\n    \"sort\": [\n        {\"OriginCityName\": \"asc\"} \n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentScrollInit",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search?scroll=1m",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							],
-							"query": [
-								{
-									"key": "scroll",
-									"value": "1m"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentScrollNext",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"scroll\" : \"1m\", \n    \"scroll_id\" : \"DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAITkWNUVhbzkyZUdRSDY4WTd4NXIwcGo4Zw==\" \n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_search/scroll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_search",
-								"scroll"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocument",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"query\":{\n    \t\"match_all\":{}\n    },\n    \"search_after\": [\"Abu Dhabi\"],\n    \"sort\": [\n        {\"OriginCityName\": \"asc\"} \n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentMatchQuery",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"size\": 2,\n  \"_source\": {\n    \"excludes\": [],\n    \"includes\": [\n        \"firstname\",\n        \"lastname\"\n      ]\n  },\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"term\": {\n\t            \"city\": {\n\t                \"value\": \"Lille\",\n\t                \"boost\": 1.0\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/account/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"account",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentIncludeExclude",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "\n{\n\t\"_source\": {\n\t\"excludes\": [],\n\t\"includes\": [\n\t    \"FlightNum\",\n\t    \"DestCountry\"\n\t  ]\n  },\n  \"size\": 30,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"term\": {\n\t            \"OriginCountry\": {\n\t                \"value\": \"US\",\n\t                \"boost\": 1.0\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentIncludeExcludeBooleanQueryAnd",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"size\": 10,\n  \"_source\": {\n    \"excludes\": [],\n    \"includes\": [\n        \"firstname\",\n        \"lastname\",\n        \"city\"\n      ]\n  },\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"city\" : {\n      \t\t\t\t\"query\" : \"Lille\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"country\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/account/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"account",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchAllDocumentIncludeExcludeBooleanQueryOr",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"size\": 100,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\t\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchFilter",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n \t\"query\": {\n    \"bool\": {\n      \"must\": [\n      \t{\n\t\t\t\"term\": {\n\t            \"Cancelled\": {\n\t                \"value\": false\n\t            }\n      \t\t}\n      \t}\n      ],\n      \"filter\": [\t{\n      \t\t\"term\": {\n\t            \"DestCountry\": {\n\t                \"value\": \"FR\"\n\t            }\n      \t\t}\n      \t}],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchSup6000km",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \t\"_source\": {\n\t\"excludes\": [],\n\t\"includes\": [\n\t    \"FlightNum\",\n\t    \"DestCountry\",\n\t    \"DestCityName\"\n\t  ]\n  },\n  \"size\":100,\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\"\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"range\" : {\n      \t\t\t\"DistanceKilometers\" : {\n      \t\t\t\t\"gte\" : \"6000\"\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [\t\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      \t],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP5 Bis",
-			"item": [
-				{
-					"name": "1",
-					"item": [
-						{
-							"name": "SearchTemplate",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{\\\"_source\\\": { \\\"includes\\\": {{#toJson}}filed_to_retrieve{{/toJson}} }, \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_scripts/mytemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_scripts",
-										"mytemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplateRender",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_render/template/myfirsttemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_render",
-										"template",
-										"myfirsttemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplateRenderWithParams",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  }\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_render/template/myfirsttemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_render",
-										"template",
-										"myfirsttemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplateSearch",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t  \"id\": \"myfirsttemplate\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"kibana_sample_data_flights",
-										"_search",
-										"template"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplatesSearchAllParam",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t  \"id\": \"myfirsttemplate\",\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"kibana_sample_data_flights",
-										"_search",
-										"template"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "2",
-					"item": [
-						{
-							"name": "SearchSupTemplate",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{\\\"_source\\\": { \\\"includes\\\": {{#toJson}}filed_to_retrieve{{/toJson}} }, \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_scripts/mysecondtemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_scripts",
-										"mysecondtemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplateRender",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"params\": {\n    \t\"filed_to_retrieve\": [ \"FlightNum\", \"OriginCountry\",\"DestCountry\", \"DestCityName\" ],\n    \t\"size\":10,\n    \t\"distance\":1,\n    \t\"origin\": \"FR\"\n\t  }\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_render/template/mysecondtemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_render",
-										"template",
-										"mysecondtemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchSup6000kmSearchAllParam",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t  \"id\": \"mysecondtemplate\",\n\t\"params\": {\n    \t\"filed_to_retrieve\": [ \"FlightNum\", \"OriginCountry\",\"DestCountry\", \"DestCityName\" ],\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"kibana_sample_data_flights",
-										"_search",
-										"template"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5d728012-a4cd-43cc-bff0-be579552a726",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "0fdfb808-c229-46d8-9943-6a7650e2cdf0",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "3",
-					"item": [
-						{
-							"name": "SearchSupTemplate",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"script\": {\n        \"lang\": \"mustache\",\n        \"source\":\"{  \\\"_source\\\": { \\\"includes\\\": {{^filed_to_retrieve}}\\\"*\\\"{{/filed_to_retrieve}}{{#toJson}}filed_to_retrieve{{/toJson}} },  \\\"size\\\":{{size}}{{^size}}100{{/size}},\\\"query\\\": {\\\"bool\\\": {\\\"must\\\": [{\\\"match\\\" : {\\\"OriginCountry\\\" : {\\\"query\\\" : \\\"{{origin}}{{^origin}}FR{{/origin}}\\\" }}},{\\\"range\\\" : {\\\"DistanceKilometers\\\" : {\\\"gte\\\" : {{distance}}{{^distance}}6000{{/distance}} }}}],\\\"filter\\\": [],\\\"should\\\": [{\\\"match\\\" : {\\\"DestCountry\\\" : {\\\"query\\\" : \\\"{{dst}}{{^dst}}US{{/dst}}\\\",\\\"boost\\\": 1.0}}}],\\\"must_not\\\": []}}}\"\n\t}\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_scripts/mythirdtemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_scripts",
-										"mythirdtemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchTemplateRender",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":1,\n    \t\"origin\": \"FR\"\n\t  }\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/_render/template/mythirdtemplate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"_render",
-										"template",
-										"mythirdtemplate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "SearchSup6000kmSearchAllParam",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t  \"id\": \"mythirdtemplate\",\n\t\"params\": {\n    \t\"size\":10,\n    \t\"distance\":700,\n    \t\"origin\": \"FR\",\n    \t\"dst\":\"IT\"\n\t  },\n\t  \"explain\":true\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/kibana_sample_data_flights/_search/template",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "9201",
-									"path": [
-										"kibana_sample_data_flights",
-										"_search",
-										"template"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "81c08d5e-ce4e-47fe-b21e-7749fd5184f6",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "66b934ab-654c-4fbe-9267-d61bc1552e0c",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -2313,233 +2939,10 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "TP6 - Routing",
+			"name": "TP",
 			"item": [
 				{
-					"name": "delete Index",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"index_patterns\": [\"acc*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1\n  },\n  \"mappings\": {\n    \"_source\": {\n      \"enabled\": false\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createIndexSettings",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"settings\" : {\n        \"index\" : {\n            \"number_of_shards\" : 3, \n            \"number_of_replicas\" : 1 \n        }\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createIndexMapping",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"_source\": {\n      \"enabled\": true\n    },\n    \"properties\": {\n                \"account_number\": {\n                    \"type\": \"long\"\n                },\n                \"address\": {\n                    \"type\": \"text\"\n                },\n                \"age\": {\n                    \"type\": \"long\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"balance\": {\n                    \"type\": \"long\"\n                },\n                \"city\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"country\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"email\": {\n                    \"type\": \"text\"\n                },\n                \"firstname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"gender\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                },\n                \"lastname\": {\n                    \"type\": \"text\",\n                    \"fields\": {\n                        \"keyword\": {\n                            \"type\": \"keyword\",\n                            \"ignore_above\": 256\n                        }\n                    }\n                }\n            }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/account/_mapping",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"account",
-								"_mapping"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateDocumentWithoutRouting",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/account/_doc/12346",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"account",
-								"_doc",
-								"12346"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateDocumentWithRouting",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Arras\",\n    \"country\": \"FR\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer/_doc/12346?routing=Arras",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer",
-								"_doc",
-								"12346"
-							],
-							"query": [
-								{
-									"key": "routing",
-									"value": "Arras"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateDocumentWithRouting2",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer/_doc/12346?routing=Lille",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer",
-								"_doc",
-								"12346"
-							],
-							"query": [
-								{
-									"key": "routing",
-									"value": "Lille"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateDocumentWithRouting3",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"account_number\": 12346,\n    \"balance\": 33,\n    \"firstname\": \"Elsa\",\n    \"lastname\": \"Durant\",\n    \"age\": 43,\n    \"gender\": \"Mme\",\n    \"address\": \"6 impasse Lecourbe\",\n    \"email\": \"yyy.yy@yy.yy\",\n    \"city\": \"Lille\",\n    \"country\": \"FR\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer/_doc/12346?routing=Lille",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer",
-								"_doc",
-								"12346"
-							],
-							"query": [
-								{
-									"key": "routing",
-									"value": "Lille"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getDocWithoutRouting",
+					"name": "exemple",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2556,366 +2959,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/customer/_doc/12346",
+							"raw": "http://{{host}}:9201/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "9201",
 							"path": [
-								"customer",
-								"_doc",
-								"12346"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getDocWithRouting",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer/_doc/12346",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer",
-								"_doc",
-								"12346"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "searchWitRouting",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": {\n    \"match_all\": {}\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/customer/_search?routing=Arras,Lille,Reims",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"customer",
-								"_search"
-							],
-							"query": [
-								{
-									"key": "routing",
-									"value": "Arras,Lille,Reims"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP7 - Reindexation",
-			"item": [
-				{
-					"name": "reindexFR",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"source\": {\n    \"index\": \"kibana_sample_data_flights\",\n    \"query\": {\n      \"match\": {\n        \"DestCountry\": \"FR\"\n      }\n    },\n    \"_source\": [\"OriginCityName\", \"DestCityName\",\"DistanceKilometers\"]\n  },\n  \"dest\": {\n    \"index\": \"sample_flight_fr\"\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_reindex",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_reindex"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP8 - Aggregation",
-			"item": [
-				{
-					"name": "aggAvg",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"size\": 1,\n\t\t \"aggs\" : {\n        \"avg_grade\" : { \"avg\" : { \"field\" : \"DistanceKilometers\" } }\n    },\n\t\"query\": {\n    \"bool\": {\n      \"must\": [\n      \t\t{\n      \t\t\"match\" : {\n      \t\t\t\"OriginCountry\" : {\n      \t\t\t\t\"query\" : \"FR\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t},\n      \t{\n      \t\t\"match\" : {\n      \t\t\t\"DestCountry\" : {\n      \t\t\t\t\"query\" : \"US\",\n      \t\t\t\t\"boost\": 1.0\n      \t\t\t\t}\n      \t\t}\n      \t}\n      ],\n      \"filter\": [],\n      \"should\": [],\n      \"must_not\": []\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "aggAvg FR US",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\t\n\t\"size\": 0,\t\n\t\"aggs\": {                                                 \n\t\t\"OriginCountry\": {                                    \n\t\t\t\"terms\": {\"field\":\"OriginCountry\"},\n\t\t\t\t\"aggs\":{\n\t\t\t\t\t\"DestinationCountry\": {                                    \n\t\t\t\t\t\"terms\": {\"field\":\"DestinationCountry\"}                  \n\t\t\t\t\t}\n\t\t\t\t}                  \n\t\t\t}\n\t\t}\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/kibana_sample_data_flights/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"kibana_sample_data_flights",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "TP10 - ILM",
-			"item": [
-				{
-					"name": "ChangeILMInterval",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"transient\": {\n    \"indices.lifecycle.poll_interval\": \"1m\" \n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_cluster/settings",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_cluster",
-								"settings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreatePolicy",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"policy\": {\n    \"phases\": {\n      \"hot\": {\n        \"actions\": {\n          \"rollover\": {\n          \t\"max_docs\": 10,\n            \"max_size\":\"50gb\",\n            \"max_age\":\"30d\"\n          },\n          \"set_priority\": {\n            \"priority\": 50\n          }\n        }\n      },\n      \"warm\": {\n        \"min_age\": \"3m\",\n        \"actions\": {\n          \"forcemerge\": {\n            \"max_num_segments\": 1\n          },\n          \"shrink\": {\n            \"number_of_shards\": 1\n          },\n          \"allocate\": {\n            \"require\": {\n              \"data\": \"warm\"\n            },\n            \"number_of_replicas\": 0\n          },\n          \"set_priority\": {\n            \"priority\": 25\n          }\n        }\n      },\n      \"cold\": {\n        \"min_age\": \"6m\",\n        \"actions\": {\n          \"set_priority\": {\n            \"priority\": 0\n          },\n          \"freeze\": {},\n          \"allocate\": {\n            \"require\": {\n              \"data\": \"cold\"\n            }\n          }\n        }\n      },\n      \"delete\": {\n        \"min_age\": \"9m\",\n        \"actions\": {\n          \"delete\": {}\n        }\n      }\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_ilm/policy/hot-warm-cold-delete-10min",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_ilm",
-								"policy",
-								"hot-warm-cold-delete-10min"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateTemplate",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"index_patterns\": [\"test-*\"], \n  \"settings\": {\n  \t\"number_of_shards\": 2,\n    \"index.lifecycle.name\": \"hot-warm-cold-delete-10min\", \n    \"index.lifecycle.rollover_alias\": \"test-alias\",\n     \"index.routing.allocation.require.data\": \"hot\"\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_template/my_template",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_template",
-								"my_template"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateIndex",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"aliases\": {\n    \"test-alias\":{\n      \"is_write_index\": true \n    }\n  }\n} ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/test-1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"test-1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "InsertDoc",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\":\"simon\",\n  \"age\":38,\n  \"city\":\"Lille\",\n  \"country\":\"FR\"\n} ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/test-alias/_doc/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"test-alias",
-								"_doc",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getILMStatus",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"aliases\": {\n    \"test-alias\":{\n      \"is_write_index\": true \n    }\n  }\n} ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/_ilm/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9201",
-							"path": [
-								"_ilm",
-								"status"
+								""
 							]
 						}
 					},
